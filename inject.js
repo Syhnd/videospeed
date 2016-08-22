@@ -5,11 +5,15 @@ chrome.extension.sendMessage({}, function(response) {
       speedStep: 0.1,       // default 0.1x
       rewindTime: 10,       // default 10s
       advanceTime: 10,      // default 10s
+      rewindTime2: 60,      // default 60s
+      advanceTime2: 60,     // default 60s
       resetKeyCode:  82,    // default: R
       slowerKeyCode: 83,    // default: S
       fasterKeyCode: 68,    // default: D
       rewindKeyCode: 90,    // default: Z
       advanceKeyCode: 88,   // default: X
+      rewindKeyCode2: 85,   // default: U
+      advanceKeyCode2: 73,  // default: I
       displayKeyCode: 86,   // default: V
       rememberSpeed: false, // default: false
       blacklist: `
@@ -26,12 +30,16 @@ chrome.extension.sendMessage({}, function(response) {
     tc.settings.speedStep = Number(storage.speedStep);
     tc.settings.rewindTime = Number(storage.rewindTime);
     tc.settings.advanceTime = Number(storage.advanceTime);
+    tc.settings.rewindTime2 = Number(storage.rewindTime2);
+    tc.settings.advanceTime2 = Number(storage.advanceTime2);
     tc.settings.resetKeyCode = Number(storage.resetKeyCode);
     tc.settings.rewindKeyCode = Number(storage.rewindKeyCode);
+    tc.settings.rewindKeyCode2 = Number(storage.rewindKeyCode2);
     tc.settings.slowerKeyCode = Number(storage.slowerKeyCode);
     tc.settings.fasterKeyCode = Number(storage.fasterKeyCode);
     tc.settings.displayKeyCode = Number(storage.displayKeyCode);
     tc.settings.advanceKeyCode = Number(storage.advanceKeyCode);
+    tc.settings.advanceKeyCode2 = Number(storage.advanceKeyCode2);
     tc.settings.rememberSpeed = Boolean(storage.rememberSpeed);
     tc.settings.blacklist = String(storage.blacklist);
 
@@ -103,10 +111,12 @@ chrome.extension.sendMessage({}, function(response) {
         <div id="controller" style="top:${top}; left:${left}">
           <span data-action="drag" class="draggable">${speed}</span>
           <span id="controls">
+            <button data-action="rewind2" class="rw"><<</button>
             <button data-action="rewind" class="rw">«</button>
             <button data-action="slower">-</button>
             <button data-action="faster">+</button>
             <button data-action="advance" class="rw">»</button>
+            <button data-action="advance2" class="rw">>></button>
             <button data-action="close" class="hideButton">x</button>
           </span>
         </div>
@@ -199,8 +209,12 @@ chrome.extension.sendMessage({}, function(response) {
 
         if (keyCode == tc.settings.rewindKeyCode) {
           runAction('rewind', document, true)
+        } else if (keyCode == tc.settings.rewindKeyCode2) {
+          runAction('rewind2', document, true)
         } else if (keyCode == tc.settings.advanceKeyCode) {
           runAction('advance', document, true)
+        } else if (keyCode == tc.settings.advanceKeyCode2) {
+          runAction('advance2', document, true)
         } else if (keyCode == tc.settings.fasterKeyCode) {
           runAction('faster', document, true)
         } else if (keyCode == tc.settings.slowerKeyCode) {
@@ -281,8 +295,12 @@ chrome.extension.sendMessage({}, function(response) {
       if (!v.classList.contains('vsc-cancelled')) {
         if (action === 'rewind') {
           v.currentTime -= tc.settings.rewindTime;
+        } else if (action === 'rewind2') {
+          v.currentTime -= tc.settings.rewindTime2;
         } else if (action === 'advance') {
           v.currentTime += tc.settings.advanceTime;
+        } else if (action === 'advance2') {
+          v.currentTime += tc.settings.advanceTime2;
         } else if (action === 'faster') {
           // Maximum playback speed in Chrome is set to 16:
           // https://code.google.com/p/chromium/codesearch#chromium/src/media/blink/webmediaplayer_impl.cc&l=64
