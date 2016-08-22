@@ -21,9 +21,9 @@ Once the extension is installed simply navigate to any page that offers HTML5 vi
 * **D** - increase playback speed.
 * **R** - reset playback speed.
 * **Z** - rewind video by 10 seconds.
+* **X** - advance video by 10 seconds.
 * **U** - advance video by 60 seconds.
 * **I** - rewind video by 60 seconds.
-* **X** - advance video by 10 seconds.
 * **V** - show/hide the controller.
 
 Note that you can customize these shortcuts in the extension settings page. Also, a few tips for enabling and forcing HTML5 video:
