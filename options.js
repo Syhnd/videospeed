@@ -3,11 +3,15 @@ var tcDefaults = {
   speedStep: 0.1,       // default 0.1x
   rewindTime: 10,       // default 10s
   advanceTime: 10,      // default 10s
+  rewindTime2: 60,      // default 60s
+  advanceTime2: 60,     // default 60s
   resetKeyCode:  82,    // default: R
   slowerKeyCode: 83,    // default: S
   fasterKeyCode: 68,    // default: D
   rewindKeyCode: 90,    // default: Z
   advanceKeyCode: 88,   // default: X
+  rewindKeyCode2: 85,   // default: U
+  advanceKeyCode2: 73,  // default: I
   displayKeyCode: 86,   // default: V
   rememberSpeed: false, // default: false
   blacklist: `
@@ -91,9 +95,13 @@ function save_options() {
   var speedStep     = document.getElementById('speedStep').value;
   var rewindTime    = document.getElementById('rewindTime').value;
   var advanceTime   = document.getElementById('advanceTime').value;
+  var rewindTime2   = document.getElementById('rewindTime2').value;
+  var advanceTime2  = document.getElementById('advanceTime2').value;
   var resetKeyCode  = document.getElementById('resetKeyInput').keyCode;
   var rewindKeyCode = document.getElementById('rewindKeyInput').keyCode;
   var advanceKeyCode = document.getElementById('advanceKeyInput').keyCode;
+  var rewindKeyCode2 = document.getElementById('rewindKeyInput2').keyCode;
+  var advanceKeyCode2 = document.getElementById('advanceKeyInput2').keyCode;
   var slowerKeyCode = document.getElementById('slowerKeyInput').keyCode;
   var fasterKeyCode = document.getElementById('fasterKeyInput').keyCode;
   var displayKeyCode = document.getElementById('displayKeyInput').keyCode;
@@ -103,9 +111,13 @@ function save_options() {
   speedStep     = isNaN(speedStep) ? tcDefaults.speedStep : Number(speedStep);
   rewindTime    = isNaN(rewindTime) ? tcDefaults.rewindTime : Number(rewindTime);
   advanceTime   = isNaN(advanceTime) ? tcDefaults.advanceTime : Number(advanceTime);
+  rewindTime2   = isNaN(rewindTime2) ? tcDefaults.rewindTime2 : Number(rewindTime2);
+  advanceTime2  = isNaN(advanceTime2) ? tcDefaults.advanceTime2 : Number(advanceTime2);
   resetKeyCode  = isNaN(resetKeyCode) ? tcDefaults.resetKeyCode : resetKeyCode;
   rewindKeyCode = isNaN(rewindKeyCode) ? tcDefaults.rewindKeyCode : rewindKeyCode;
   advanceKeyCode = isNaN(advanceKeyCode) ? tcDefaults.advanceKeyCode : advanceKeyCode;
+  rewindKeyCode2 = isNaN(rewindKeyCode2) ? tcDefaults.rewindKeyCode2 : rewindKeyCode2;
+  advanceKeyCode2 = isNaN(advanceKeyCode2) ? tcDefaults.advanceKeyCode2 : advanceKeyCode2;
   slowerKeyCode = isNaN(slowerKeyCode) ? tcDefaults.slowerKeyCode : slowerKeyCode;
   fasterKeyCode = isNaN(fasterKeyCode) ? tcDefaults.fasterKeyCode : fasterKeyCode;
   displayKeyCode = isNaN(displayKeyCode) ? tcDefaults.displayKeyCode : displayKeyCode;
@@ -114,9 +126,13 @@ function save_options() {
     speedStep:      speedStep,
     rewindTime:     rewindTime,
     advanceTime:    advanceTime,
+    rewindTime2:    rewindTime2,
+    advanceTime2:   advanceTime2,
     resetKeyCode:   resetKeyCode,
     rewindKeyCode:  rewindKeyCode,
     advanceKeyCode: advanceKeyCode,
+    rewindKeyCode2:  rewindKeyCode2,
+    advanceKeyCode2: advanceKeyCode2,
     slowerKeyCode:  slowerKeyCode,
     fasterKeyCode:  fasterKeyCode,
     displayKeyCode: displayKeyCode,
@@ -138,9 +154,13 @@ function restore_options() {
     document.getElementById('speedStep').value = storage.speedStep.toFixed(2);
     document.getElementById('rewindTime').value = storage.rewindTime;
     document.getElementById('advanceTime').value = storage.advanceTime;
+    document.getElementById('rewindTime2').value = storage.rewindTime2;
+    document.getElementById('advanceTime2').value = storage.advanceTime2;
     updateShortcutInputText('resetKeyInput',  storage.resetKeyCode);
     updateShortcutInputText('rewindKeyInput', storage.rewindKeyCode);
     updateShortcutInputText('advanceKeyInput', storage.advanceKeyCode);
+    updateShortcutInputText('rewindKeyInput2', storage.rewindKeyCode2);
+    updateShortcutInputText('advanceKeyInput2', storage.advanceKeyCode2);
     updateShortcutInputText('slowerKeyInput', storage.slowerKeyCode);
     updateShortcutInputText('fasterKeyInput', storage.fasterKeyCode);
     updateShortcutInputText('displayKeyInput', storage.displayKeyCode);
@@ -176,11 +196,15 @@ document.addEventListener('DOMContentLoaded', function () {
   initShortcutInput('resetKeyInput');
   initShortcutInput('rewindKeyInput');
   initShortcutInput('advanceKeyInput');
+  initShortcutInput('rewindKeyInput2');
+  initShortcutInput('advanceKeyInput2');
   initShortcutInput('slowerKeyInput');
   initShortcutInput('fasterKeyInput');
   initShortcutInput('displayKeyInput');
 
   document.getElementById('rewindTime').addEventListener('keypress', inputFilterNumbersOnly);
   document.getElementById('advanceTime').addEventListener('keypress', inputFilterNumbersOnly);
+  document.getElementById('rewindTime2').addEventListener('keypress', inputFilterNumbersOnly);
+  document.getElementById('advanceTime2').addEventListener('keypress', inputFilterNumbersOnly);
   document.getElementById('speedStep').addEventListener('keypress', inputFilterNumbersOnly);
 })
